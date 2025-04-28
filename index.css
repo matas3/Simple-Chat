@@ -1,0 +1,29 @@
+/* CSS */
+:root {
+	font-family: Inter, sans-serif;
+	font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+	:root { font-family: InterVariable, sans-serif; }
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: transparent; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #211c2c;
+	border-radius: 4px; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #272133; 
+}
