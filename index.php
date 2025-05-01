@@ -1,18 +1,12 @@
 <?php
+
+
+$database = new PDO("pgsql:host=127.0.0.1;port=5432;dbname=simple_chat;", "postgres", "secret");
+$messages = $database->query("SELECT * FROM messages")->fetchAll();
+
 $currentUser = "Morkius";
 $title = "Simple Chat";
-$messages = [
-	[
-		"date" => "2025-04-28 20:07",
-		"author" => "Morkius",
-		"content" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tristique tortor orci. Mauris convallis lectus. diam, sed laoreet sem feugiat nec. Vivamus tempus mauris at congue ultrices.",
-	],
-	[
-		"date" => "2025-04-28 20:13", 
-		"author" => "Šmikius",
-		"content" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tristique tortor orci.",
-	],
-];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,19 +34,19 @@ $messages = [
 				<?php
 
 				for ($index = 0; $index < count($messages); $index++ ) {
-					if ($messages[$index]["author"] === $currentUser) {
+					if ($messages[$index]["author_name"] === $currentUser) {
 						?>
 						<div class="self-end">
 							<div class="font-medium text-sm mb-1 text-[#110e16]">
 								<?php
-								echo $messages[$index]["author"] . " • " . $messages[$index]["date"];
+								echo $messages[$index]["author_name"] . " • " . date_format(date_create($messages[$index]["created_at"]), "Y-m-d H:i");
 								?>
 							</div>
 							<div
 								class="bg-[#3e3257] rounded-2xl rounded-tr-none px-3 py-2 max-w-[400px] text-[#897fad] shadow-lg"
 							>
 								<?php
-								echo $messages[$index]["content"];
+								echo $messages[$index]["message"];
 								?>
 							</div>
 						</div>
@@ -63,14 +57,14 @@ $messages = [
 						<div>
 							<div class="font-medium text-sm mb-1 text-[#110e16]">
 								<?php
-								echo $messages[$index]["author"] . " • " . $messages[$index]["date"];
+								echo $messages[$index]["author_name"] . " • " . date_format(date_create($messages[$index]["created_at"]), "Y-m-d H:i");
 								?>
 							</div>
 							<div
 								class="bg-[#3c3549] rounded-2xl rounded-tl-none px-3 py-2 max-w-[400px] text-[#0a090e] shadow-lg"
 							>
 								<?php
-								echo $messages[$index]["content"];
+								echo $messages[$index]["message"];
 								?>
 							</div>
 						</div>
