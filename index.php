@@ -1,10 +1,11 @@
 <?php
 
+require_once "helpers.php";
 
 $database = new PDO("pgsql:host=127.0.0.1;port=5432;dbname=simple_chat;", "postgres", "secret");
 $messages = $database->query("SELECT * FROM messages")->fetchAll();
 
-$currentUser = "Morkius";
+$currentUser = getClientIp();
 $title = "Simple Chat";
 
 ?>
@@ -30,7 +31,7 @@ $title = "Simple Chat";
 				echo $title;
 				?>
 			</div>
-			<div class="space-y-4 flex flex-col px-4 overflow-auto w-full pb-2">
+			<div class="space-y-4 flex flex-col px-4 overflow-auto w-full pb-2 scroll-box">
 				<?php
 
 				for ($index = 0; $index < count($messages); $index++ ) {
@@ -78,12 +79,12 @@ $title = "Simple Chat";
 					class="overflow-hidden rounded-2xl w-full m-4 h-16 focus-within:outline-none focus-within:ring-4 focus-within:ring-[#251f31]"
 				>
 					<textarea
-						class="bg-[#3c3549] w-full h-16 rounded-2xl px-4 pt-5 pb-5 resize-none focus:outline-none text-[#0a090e]"
+						class="bg-[#3c3549] w-full h-16 rounded-2xl px-4 pt-5 pb-5 resize-none focus:outline-none text-[#0a090e] message-box"
 						placeholder="Type your message here..."
 					></textarea>
 				</div>
 				<button
-					class="rounded-2xl bg-[#3c3549] size-16 justify-center flex items-center mr-4 mb-4 mt-4 flex-none hover:bg-[#393244] duration-150"
+					class="rounded-2xl bg-[#3c3549] size-16 justify-center flex items-center mr-4 mb-4 mt-4 flex-none hover:bg-[#393244] duration-150 message-button"
 					type="button"
 				>
 					<svg
@@ -103,5 +104,6 @@ $title = "Simple Chat";
 				</button>
 			</div>
 		</div>
+		<script src="/main.js" ></script>
 	</body>
 </html>
